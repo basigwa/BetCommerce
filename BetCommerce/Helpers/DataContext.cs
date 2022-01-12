@@ -1,5 +1,6 @@
 ﻿using AutoMapper.Configuration;
 using BetCommerce.Entities.AuthenticationEntities;
+using BetCommerce.Entities.Common;
 using BetCommerce.Entities.CustomerEntities;
 using BetCommerce.Entities.Orders;
 using BetCommerce.Entities.ProductEntities;
@@ -21,6 +22,7 @@ namespace BetCommerce.Helpers
         public DbSet<OrderDetail> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CodeGenerator> CodeGenerators { get; set; }
 
         public void SetCommandTimeOut(int timeOut)
         {

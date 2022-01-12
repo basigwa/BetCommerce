@@ -43,6 +43,11 @@ namespace BetCommerce.Services
             string query = @"select * from products where productId={0}";
             return await FirstOrDefaultOptimisedAsync<Product>(query, args);
         }
+        public async Task<IEnumerable<ProductCategory>> GetProductCategories()
+        {
+            string query = @"select * from ProductCategories";
+            return await FindOptimisedAsync<ProductCategory>(query);
+        }
         //product inventory
         public ProductInventory GetProductInventory(int id)
         {

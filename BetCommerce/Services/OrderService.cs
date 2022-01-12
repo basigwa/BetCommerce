@@ -19,7 +19,8 @@ namespace BetCommerce.Services
         public OrderService(
             DataContext context,
             IMapper mapper,
-            IOptions<AppSettings> appSettings) : base(context)
+            IOptions<AppSettings> appSettings
+            ) : base(context)
         {
             _context = context;
             _mapper = mapper;
@@ -28,13 +29,13 @@ namespace BetCommerce.Services
        
         public async Task CreateOrder(object[] args)
         {
-            string query = @"insert into orders(Id,UserId,Total,
-PaymentMethod,OrderStatus,CreatedBy,DateCreated) values ({0},{1},{2},{3},{4},{5},getdate())";
+            string query = @"insert into orders(Id,OrderNumber,Email,Total,
+PaymentMethod,OrderStatus,CreatedBy,DateCreated) values (newid(),{0},{1},{2},{3},{4},{5},getdate())";
             await UpdateAsync(query, args);
         }
         public async Task CreateOrderItems(object[] args)
         {
-            string query = @"insert into orderitems(Id, OrderId, ProductId,Quantity,unitprice,createdby,datecreated)
+            string query = @"insert into orderitems(Id, OrderNumber, ProductId,Quantity,unitprice,createdby,datecreated)
 values (newid(),{0},{1},{2},{3},{4},getdate())";
             await UpdateAsync(query, args);
         }

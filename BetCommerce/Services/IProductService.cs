@@ -11,5 +11,6 @@ namespace BetCommerce.Services
         Task<Product> GetProduct(object[] args);
         ProductInventory GetProductInventory(int id);
         Task<IEnumerable<Product>> GetProducts();
+        Task<IEnumerable<ProductCategory>> GetProductCategories();
     }
 }

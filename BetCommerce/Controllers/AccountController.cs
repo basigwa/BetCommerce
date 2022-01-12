@@ -10,8 +10,9 @@ using System.Collections.Generic;
 
 namespace BetCommerce.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/v1/bet/account")]
     [ApiController]
-    [Route("[controller]")]
     public class AccountController : BaseController
     {
         private readonly IAuthenticationService _accountService;
@@ -95,8 +96,8 @@ namespace BetCommerce.Controllers
             return Ok(new { message = "Password reset successful, you can now login" });
         }
 
-        [Authorize(Role.Admin)]
-        [HttpGet]
+        [Authorize]
+        [HttpGet("accounts")]
         public ActionResult<IEnumerable<AccountResponse>> GetAll()
         {
             var accounts = _accountService.GetAll();

@@ -51,5 +51,14 @@ namespace BetCommerce.Controllers
             var orders = await _productService.GetProducts();
             return Ok(orders);
         }
+        //schemes
+        [HttpGet]
+        [Route("get-product-categories")]
+
+        public async Task<ActionResult<Products>> GetProductCategories()
+        {
+            var orders = await _productService.GetProductCategories();
+            return Ok(orders);
+        }
     }
 }

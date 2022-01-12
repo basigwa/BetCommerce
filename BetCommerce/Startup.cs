@@ -33,22 +33,7 @@ namespace BetCommerce
                         options.UseSqlServer(Configuration.GetConnectionString("LocalDB"),
                         b => b.MigrationsAssembly("BetCommerce")));
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CONTROL PANEL API", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = @"JWT Authorization header using the Bearer scheme.
-                     Please Login from the [/api/v1/bet/login] end point and copy the token.
-                      Enter 'Bearer' [space] and then your token in the text input below.
-                                 Example: 'Bearer 12345abcdef'",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-
-            });
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("PostPolicy",
@@ -69,26 +54,18 @@ namespace BetCommerce
         // configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app)
         {
-            // generated swagger json and swagger ui middleware
-            app.UseDeveloperExceptionPage();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("../swagger/v1/swagger.json", "Control Panel v1"));
-            app.UseStaticFiles();
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseCors("PostPolicy");
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseSwagger();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", ".BET E COMMERCE"));
+
+            app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             // global error handler
             app.UseMiddleware<ErrorHandlerMiddleware>();

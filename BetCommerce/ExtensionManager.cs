@@ -13,12 +13,14 @@ namespace BetCommerce
     {
         public static IServiceCollection AddServices(this IServiceCollection services, Action<DbContextOptionsBuilder> options)
         {
+            services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddDbContextPool<DataContext>(options);
-
+            
             return services;
         }
     }
