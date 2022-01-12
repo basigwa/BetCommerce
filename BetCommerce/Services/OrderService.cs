@@ -42,7 +42,7 @@ values (newid(),{0},{1},{2},{3},{4},getdate())";
         public async Task<OrderVM> GetOrder(object[] args)
         {
             string query = @"select * from OrderDetails where orderId={0}";
-            var detail = await FirstOrDefaultAsync<OrderDetail>(query, args);
+            var detail = await FirstOrDefaultOptimisedAsync<OrderDetail>(query, args);
             string itemsquery = @"select * from orderitems where orderid={0}";
             var items = await FindOptimisedAsync<OrderItem>(itemsquery, new object[] { detail.Id });
             OrderVM fullOrder = new OrderVM();
